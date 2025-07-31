@@ -99,7 +99,6 @@ void performAllRequests(char *webDomain, char *inputValue) {
         printf("%s %ld\n", "PUT:", response_code);
 
 
-
         curl_easy_cleanup(curl); // Clean stuffs
     }
 
