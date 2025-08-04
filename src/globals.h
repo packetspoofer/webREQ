@@ -3,7 +3,6 @@
  * ACCESSIBLE CERTAIN ELEMENTS IN ALL
  * C FILES
  */
-
 #ifndef GLBOALS_H
 #define GLOBALS_H
 
@@ -40,19 +39,17 @@ typedef enum {
     HTTP_SERVICE_UNAVAILABLE = 503
 } HttpStatusCode;
 
-
 /*
- * We set performsAllRequests method
+ * We set httpResponseToString method
  * available in all C files
-*/
+ */
 
 const char* httpResponseToString(HttpStatusCode code);
 
-
 /*
  * We set performsAllRequests method
  * available in all C files
-*/
-void performAllRequests(char *webDomain, char *inputValue);
+ */
+void performAllRequests(char *webDomain);
 
 #endif

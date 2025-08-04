@@ -18,7 +18,7 @@ Execute ./webREQ and insert in the first line the <strong>endpoint</strong> and 
 
 <h2> GOALS </h2>
 
-- [X] Check the url input (formatted as http)
+- [ ] Check the url input (formatted as http)
 - [X] Parse the status code in string (Example: GET 200 [SUCCESS])
 - [ ] Implement multiple values to send (Ex: send things through json for post reqs) + add query params for get requests
 - [ ] Rewrite with --comands-args for stuff like only getting methods or only uploading methods

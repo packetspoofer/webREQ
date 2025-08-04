@@ -1,12 +1,10 @@
 #include <curl/curl.h>
+#include <string.h>
 #include "globals.h"
 
-/* IGNORE HTML BODY (Powered by gpt) */
-size_t discard_response(void *ptr, size_t size, size_t nmemb, void *userdata) {
-    return size * nmemb;
-}
-
-/* PARSE THE HTTP RESPONSE TO STRING (ex: 200 = "OK")*/
+/* Parse the http response to string (ex: 200 = "OK")
+ * Enum is declared on globals.h
+ */
 const char* httpResponseToString(HttpStatusCode code) {
     switch (code) {
         case HTTP_OK: return "OK";
@@ -33,103 +31,49 @@ const char* httpResponseToString(HttpStatusCode code) {
     }
 }
 
-void performAllRequests(char *webDomain, char *inputValue) {
+/* Do all the requests to a specified endpoint */
+void performAllRequests(char *webDomain) {
 
     long response_code;
 
     if (curl) {
 
-        /*
-         * OPTSTNS REQUEST
-         */
-
-        // Set parameters
+        /* OPTIONS REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
-        curl_easy_setopt(curl, CURLUPART_OPTIONS, 1L);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, discard_response);
-        // Perform the get request
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "OPTIONS");
         response = curl_easy_perform(curl);
-        // Print the response of the request
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "OPTIONS:", response_code, httpResponseToString(response_code));
-        // Reset the params and stuffs
-        curl_easy_reset(curl);
 
-
-
-
-        /*
-         * HEAD REQUEST
-         */
-
-        // Set parameters
+        /* HEAD REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
         curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, discard_response);
-        // Perform the get request
         response = curl_easy_perform(curl);
-        // Print the response of the request
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "HEAD:", response_code, httpResponseToString(response_code));
 
-        // Reset the params and stuffs
-        curl_easy_reset(curl);
-
-
-
-        /*
-         * GET REQUEST
-         */
-
-        // Set parameters
+        /* GET REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, discard_response);
-        // Perform the get request
         response = curl_easy_perform(curl);
-        // Print the response of the request
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "GET:", response_code, httpResponseToString(response_code));
 
-
-        // Reset the params and stuffs
-        curl_easy_reset(curl);
-
-
-        /*
-         * POST REQUEST
-         */
-
-        // Set parameters
+        /* POST REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
-        curl_easy_setopt(curl, CURLOPT_POST, 1L);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, inputValue);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, discard_response);
-        // Perform the get request
+        curl_easy_setopt(curl, CURLOPT_MIMEPOST, "");
         response = curl_easy_perform(curl);
-        // Print the response of the request
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "POST:", response_code, httpResponseToString(response_code));
 
-
-
-        /*
-         * PUT REQUEST
-         */
-
-        // Set parameters
+        /* PUT REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
-        curl_easy_setopt(curl, CURLOPT_PUT, 1L);
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, inputValue);
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, discard_response);
-        // Perform the get request
+        curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "PUT");
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, 0L);
+        curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
         response = curl_easy_perform(curl);
-        // Print the response of the request
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "PUT:", response_code, httpResponseToString(response_code));
-
-
-        curl_easy_cleanup(curl); // Clean stuffs
     }
 
 }
