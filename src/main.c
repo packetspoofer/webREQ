@@ -6,28 +6,49 @@
 
 /* These attributes need to
  * be initialized in Main.c
- * even if they are global
+ * even if they are writed
+ * on globals.h
  */
 CURL *curl;
 CURLcode response;
 
-int main(void) {
+int main(int argc, char **argv) {
+    if (argc != 3) {
+        printf("USAGE:\n");
+        printf(" ./webREQ -get <url>\n");
+        printf(" ./webREQ -post <url>\n");
+        printf(" ./webREQ -all <url>\n");
+        return 1;
+    }
+
+    const char *option = argv[1];
+    const char *webEndpoint = argv[2];
 
     /* Initialize curl */
     curl_global_init(CURL_GLOBAL_ALL);
     /* CURL HANDLE */
     curl = curl_easy_init();
 
-    /* GET THE ENDPOINT */
-    char webEndpoint[254];
-    printf("Insert the URL (http gangy): ");
-    fgets(webEndpoint, sizeof(webEndpoint), stdin);
-    webEndpoint[strcspn(webEndpoint, "\n")] = 0; // Remove the newline
+    /* I do this shit manual because
+    * c hate strings in switch statements
+    */
+    if (strcmp(option, "-get") == 0 || strcmp(option, "--get") == 0) {
+        getTypeReqs(webEndpoint);
+    }
+    else if (strcmp(option, "-post") == 0 || strcmp(option, "--post") == 0) {
+        postTypeReqs(webEndpoint);
+    }
+    else if (strcmp(option, "-all") == 0 || strcmp(option, "--all") == 0) {
+        getTypeReqs(webEndpoint);
+        postTypeReqs(webEndpoint);
+    }
+    else {
+        printf("Invalid option: %s\n", option);
+        printf("USAGE:\n ./webREQ -get <url>\n ./webREQ -post <url>\n ./webREQ -all <url>\n");
+        return 1;
+    }
 
-    // TODO  Do the check of URL
 
-    performAllRequests(webEndpoint);
-
-    curl_global_cleanup(); // Clean global stuffs
+    curl_global_cleanup(); // Clean curl shits
     return 0;
 }

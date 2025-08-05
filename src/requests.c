@@ -32,7 +32,7 @@ const char* httpResponseToString(HttpStatusCode code) {
 }
 
 /* Do all the requests to a specified endpoint */
-void performAllRequests(char *webDomain) {
+void getTypeReqs(const char *webDomain) {
 
     long response_code;
 
@@ -59,6 +59,16 @@ void performAllRequests(char *webDomain) {
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "GET:", response_code, httpResponseToString(response_code));
 
+    }
+
+}
+
+void postTypeReqs(const char *webDomain) {
+
+    long response_code;
+
+    if (curl) {
+
         /* POST REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
         curl_easy_setopt(curl, CURLOPT_MIMEPOST, "");
@@ -74,6 +84,7 @@ void performAllRequests(char *webDomain) {
         response = curl_easy_perform(curl);
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "PUT:", response_code, httpResponseToString(response_code));
+
     }
 
 }

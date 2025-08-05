@@ -47,9 +47,10 @@ typedef enum {
 const char* httpResponseToString(HttpStatusCode code);
 
 /*
- * We set performsAllRequests method
- * available in all C files
+ * We set the requests  method
+ * accessible trough all C files
  */
-void performAllRequests(char *webDomain);
+void getTypeReqs(const char *webDomain);
+void postTypeReqs(const char *webDomain);
 
 #endif
