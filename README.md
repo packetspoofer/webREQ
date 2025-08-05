@@ -18,10 +18,10 @@ Execute ./webREQ and insert in the first line the <strong>endpoint</strong> and 
 
 <h2> GOALS </h2>
 
-- [ ] Check the url input (formatted as http)
+- [ ] Do the check of the endpoint (formatted as http)
 - [X] Parse the status code in string (Example: GET 200 [SUCCESS])
 - [ ] Implement multiple values to send (Ex: send things through json for post reqs) + add query params for get requests
-- [ ] Rewrite with --comands-args for stuff like only getting methods or only uploading methods
+- [X] Rewrite with --comands-args for stuff like only getting methods or only uploading methods
 
 <h5> <em>Gli invidiosi diranno che è uno scanner contro l'infrastruttura</em></h5>
 <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZHVya2VneDdxb21rbGU1NnF4aDlyb3N2ejdkYWFkMjJsOHNkYXF0byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/YOqem0DUvPvNnN8toF/giphy.gif" width="190" height="190" />
