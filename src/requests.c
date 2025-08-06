@@ -31,7 +31,7 @@ const char* httpResponseToString(HttpStatusCode code) {
     }
 }
 
-/* Do all the requests to a specified endpoint */
+/* Do all the requests to a specific endpoint */
 void getTypeReqs(const char *webDomain) {
 
     long response_code;
@@ -41,6 +41,7 @@ void getTypeReqs(const char *webDomain) {
         /* OPTIONS REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
         curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, "OPTIONS");
+        curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
         response = curl_easy_perform(curl);
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "OPTIONS:", response_code, httpResponseToString(response_code));
@@ -55,6 +56,7 @@ void getTypeReqs(const char *webDomain) {
         /* GET REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
         curl_easy_setopt(curl, CURLOPT_HTTPGET, 1L);
+        curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
         response = curl_easy_perform(curl);
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "GET:", response_code, httpResponseToString(response_code));
@@ -71,7 +73,8 @@ void postTypeReqs(const char *webDomain) {
 
         /* POST REQUEST */
         curl_easy_setopt(curl, CURLOPT_URL, webDomain);
-        curl_easy_setopt(curl, CURLOPT_MIMEPOST, "");
+        curl_easy_setopt(curl, CURLOPT_MIMEPOST, "key=value");
+        curl_easy_setopt(curl, CURLOPT_NOBODY, 1L);
         response = curl_easy_perform(curl);
         curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
         printf("%s %ld %s\n", "POST:", response_code, httpResponseToString(response_code));

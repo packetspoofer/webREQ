@@ -15,9 +15,9 @@ CURLcode response;
 int main(int argc, char **argv) {
     if (argc != 3) {
         printf("USAGE:\n");
-        printf(" ./webREQ -get <url>\n");
-        printf(" ./webREQ -post <url>\n");
-        printf(" ./webREQ -all <url>\n");
+        printf(" ./webREQ -get -g <url>\n");
+        printf(" ./webREQ -post -p <url>\n");
+        printf(" ./webREQ -all -a <url>\n");
         return 1;
     }
 
@@ -32,19 +32,19 @@ int main(int argc, char **argv) {
     /* I do this shit manual because
     * c hate strings in switch statements
     */
-    if (strcmp(option, "-get") == 0 || strcmp(option, "--get") == 0) {
+    if (strcmp(option, "-get") == 0 || strcmp(option, "-g") == 0) {
         getTypeReqs(webEndpoint);
     }
-    else if (strcmp(option, "-post") == 0 || strcmp(option, "--post") == 0) {
+    else if (strcmp(option, "-post") == 0 || strcmp(option, "-p") == 0) {
         postTypeReqs(webEndpoint);
     }
-    else if (strcmp(option, "-all") == 0 || strcmp(option, "--all") == 0) {
+    else if (strcmp(option, "-all") == 0 || strcmp(option, "-a") == 0) {
         getTypeReqs(webEndpoint);
         postTypeReqs(webEndpoint);
     }
     else {
         printf("Invalid option: %s\n", option);
-        printf("USAGE:\n ./webREQ -get <url>\n ./webREQ -post <url>\n ./webREQ -all <url>\n");
+        printf("USAGE:\n ./webREQ -get -g <url>\n ./webREQ -post -p <url>\n ./webREQ -all -a <url>\n");
         return 1;
     }
 
