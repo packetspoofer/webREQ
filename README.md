@@ -1,7 +1,7 @@
 <h1>Usage (-g,-p,-a are aliases)</h1>
-<code>./webREQ -get -g <url>
-./webREQ -post -p <url>
-./webREQ -all -a <url>
+<code>./webREQ -get -g url <url>
+./webREQ -post -p url
+./webREQ -all -a url
 </code>
 
 <h2> Dependecies required </h2>
